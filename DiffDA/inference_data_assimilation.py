@@ -19,6 +19,8 @@ from diffusers import FlaxDDPMScheduler
 from datetime import datetime
 import pandas as pd
 
+import graphcast.data_utils as data_utils
+import dataclasses
 from checkpoint import load_checkpoint as load_diffusion_checkpoint
 from diffusion_common import get_forcing, _to_jax_xarray, _to_numpy_xarray
 from diffusion_common import wrap_graphcast as wrap_graphcast_diffusion, wrap_graphcast_prediction
@@ -37,8 +39,8 @@ def calculate_stat_rmse(diff: xarray.Dataset, data_type: str):
         surface_vars = SURFACE_LEVEL_VARS_NO_TP
     else:
         surface_vars = SURFACE_LEVEL_VARS
-    data_pl_dict = {var : np.array(jnp.sqrt(xarray_jax.unwrap_data((diff[var]*diff[var]).mean(dim=["lon", "lat"])))).ravel() for var in PRESSURE_LEVEL_VARS}
-    data_sl_dict = {var : np.array(jnp.sqrt(xarray_jax.unwrap_data((diff[var]*diff[var]).mean(dim=["lon", "lat"])))).ravel() for var in surface_vars}
+    data_pl_dict = {var : np.array(np.sqrt((diff[var]*diff[var]).mean(dim=["lon", "lat"]))).ravel() for var in PRESSURE_LEVEL_VARS}
+    data_sl_dict = {var : np.array(np.sqrt((diff[var]*diff[var]).mean(dim=["lon", "lat"]))).ravel() for var in surface_vars}
     data_pl_dict["data_type"] = data_type
     data_sl_dict["data_type"] = data_type
     df_pl = pd.DataFrame(data_pl_dict, index=PRESSURE_LEVELS)
@@ -51,58 +53,62 @@ def autoregressive_assimilation(graphcast_fn: hk.TransformedWithState, repaint_6
                                 norm_original_fn, norm_diff_fn, graphcast_params, repaint_6h_params, repaint_48h_params, validate_dataset, args, device, rng):
     pbar = tqdm(range(args.num_autoregressive_steps), desc="Validation", total=len(validate_dataset))
     assert len(validate_dataset) >= args.num_autoregressive_steps
-    dataset_iter = iter(validate_dataset)
     validation_batch_size = 1
 
-    corrected_pred, corrected_pred_prev = None, None
-    inputs_pred, inputs_pred_prev = None, None
+    assimilated_list = []
+    predictions = None
 
     graphcast_fn_jitted = jax.jit(graphcast_fn.apply)
     
     for batch_idx in pbar:
         rng_batch = jax.random.fold_in(rng, batch_idx)
         timesteps = np.ones((validation_batch_size,), dtype=np.int32)
-        batch = next(dataset_iter)
+        batch = validate_dataset[batch_idx]
         
-        inputs_ground_truth = batch['weatherbench']
-        inputs_static = batch['static']
-        datetime = inputs_ground_truth.datetime
-        lon = inputs_ground_truth.lon
+        
+        inputs_ground_truth_original = batch['weatherbench']
+        inputs_static_original = batch['static']
+        datetime = inputs_ground_truth_original.datetime
+        lon = inputs_ground_truth_original.lon
+
         if batch_idx <= 1:
             # only load gc prediction at first step, use previous prediction for the rest
-            inputs_pred_prev = inputs_pred
-            inputs_pred = batch['graphcast']
-            inputs_pred = _to_jax_xarray(inputs_pred.drop_vars("datetime"), device)
+            inputs_pred_original = batch['graphcast']
+            inputs_pred = _to_jax_xarray(inputs_pred_original.drop_vars("datetime"), device)
             repaint_fn = repaint_48h_fn
             num_train_timesteps = args.num_train_timesteps_48h
             repaint_params = repaint_48h_params
         else:
+            inputs_pred = _to_jax_xarray(predictions.drop_vars("time"), device)
+            inputs_pred = inputs_pred.expand_dims({'batch':1})
             repaint_fn = repaint_6h_fn
             num_train_timesteps = args.num_train_timesteps_6h
             repaint_params = repaint_6h_params
+
         forcings = get_forcing(datetime, lon, timesteps, num_train_timesteps, batch_size=validation_batch_size)
         forcings_prediction = get_forcing(datetime, lon, timesteps, num_train_timesteps, batch_size=validation_batch_size, forcing_type="prediction")
         forcings = _to_jax_xarray(forcings, device)
         forcings_prediction = _to_jax_xarray(forcings_prediction, device)
-        inputs_ground_truth = _to_jax_xarray(inputs_ground_truth.drop_vars("datetime"), device)
-        inputs_static = _to_jax_xarray(inputs_static, device)
+        inputs_ground_truth = _to_jax_xarray(inputs_ground_truth_original.drop_vars("datetime"), device)
+        inputs_static = _to_jax_xarray(inputs_static_original, device)
         toa = inputs_ground_truth["toa_incident_solar_radiation"]
         norm_toa = norm_original_fn(toa)
-        norm_forcings = xarray.merge([forcings, norm_toa])
-        norm_forcings_prediction = xarray.merge([forcings_prediction, norm_toa])
+        norm_forcings = norm_original_fn(forcings)
+        norm_forcings = xarray.merge([norm_forcings, norm_toa])
+        norm_forcings_prediction = norm_original_fn(forcings_prediction)
+        norm_forcings_prediction = xarray.merge([norm_forcings_prediction, norm_toa])
         forcings_prediction = xarray.merge([forcings_prediction, toa])
         norm_inputs_pred = norm_original_fn(inputs_pred)
         if 'total_precipitation_6hr' in norm_inputs_pred.data_vars and args.resolution == "0.25deg":
             norm_inputs_pred = norm_inputs_pred.drop_vars('total_precipitation_6hr')
         norm_static = norm_original_fn(inputs_static)
         mask = batch["mask"]
-        measurements_interp = batch["weatherbench_interp"].drop_vars(["datetime", "toa_incident_solar_radiation"])
+        measurements_interp_original = batch["weatherbench_interp"].drop_vars(["datetime"])
         mask = _to_jax_xarray(mask, device)["mask"] # convert from dataset to dataarray
-        measurements_interp = _to_jax_xarray(measurements_interp, device)
+        measurements_interp = _to_jax_xarray(measurements_interp_original, device)
         measurements_diff_interp = measurements_interp - inputs_pred
         norm_measurements_diff_interp = norm_diff_fn(measurements_diff_interp)
 
-        corrected_pred_prev = corrected_pred
         corrected_pred_prognoistic, _ = repaint_fn.apply(repaint_params, state={}, rng=None, repaint_mask = mask,
                                              norm_measurements_diff_interp = norm_measurements_diff_interp,
                                              norm_inputs_pred = norm_inputs_pred,
@@ -110,31 +116,49 @@ def autoregressive_assimilation(graphcast_fn: hk.TransformedWithState, repaint_6
                                              norm_static = norm_static,
                                              rng_batch = rng_batch,
                                              progress_bar = True)
-        corrected_pred = xarray.merge([corrected_pred_prognoistic, forcings_prediction])
-        if 'total_precipitation_6hr' in corrected_pred.data_vars and args.resolution == "0.25deg":
-            corrected_pred = corrected_pred.drop_vars('total_precipitation_6hr')
-        if corrected_pred_prev is None:
-            continue
-        graphcast_inputs = xarray.concat([corrected_pred_prev, corrected_pred], dim="time")
-        targets_template = inputs_ground_truth.drop_vars("toa_incident_solar_radiation")
-        # TODO: run 48h prediction
-        inputs_pred_prev = inputs_pred
-        inputs_pred, _ = graphcast_fn_jitted(graphcast_params, state={}, rng=None, 
-                                          inputs=graphcast_inputs,
-                                          norm_static=norm_static,
-                                          norm_forcings=norm_forcings_prediction,
-                                          targets_template=targets_template,)
-        
+        corrected_pred_prognoistic = _to_numpy_xarray(corrected_pred_prognoistic)
+        corrected_pred_prognoistic = corrected_pred_prognoistic.assign_coords(datetime=("time", inputs_ground_truth_original.datetime.data))
+        assimilated_list.append(corrected_pred_prognoistic.squeeze(dim="batch", drop=True))
         if args.dump_data:
             obs_coords = xarray.DataArray(batch['obs_coords'], dims=['batch', 'latlon', 'dim'])
-            measurements_interp_output = _to_numpy_xarray(measurements_interp)
+            measurements_interp_output = measurements_interp_original
             measurements_interp_output['obs_coords'] = obs_coords
-            _to_numpy_xarray(corrected_pred_prognoistic).to_zarr(f"{args.dump_data_folder}/DA_step{batch_idx}.zarr")
+            corrected_pred_prognoistic.to_zarr(f"{args.dump_data_folder}/DA_step{batch_idx}.zarr")
             measurements_interp_output.to_zarr(f"{args.dump_data_folder}/Interp_step{batch_idx}.zarr")
+            inputs_ground_truth_original.to_zarr(f"{args.dump_data_folder}/GroundTruth_step{batch_idx}.zarr")
 
-        diff = corrected_pred_prognoistic - inputs_ground_truth.drop_vars("toa_incident_solar_radiation")
-        diff_gc = inputs_pred_prev - inputs_ground_truth.drop_vars("toa_incident_solar_radiation")
-        diff_interp = measurements_interp - inputs_ground_truth.drop_vars("toa_incident_solar_radiation")
+        if len(assimilated_list) < 2:
+            continue
+        assert len(assimilated_list) == 2
+
+        targets_template = xarray.zeros_like(inputs_ground_truth_original).squeeze(dim="batch", drop=True)
+        targets_template = targets_template.drop_vars('toa_incident_solar_radiation')
+        targets_template = targets_template.assign_coords(datetime=("time", inputs_ground_truth_original.datetime.data + np.timedelta64(6, 'h')))
+        dataset = xarray.concat(assimilated_list + [targets_template], dim="time")
+        dataset = dataset.assign_coords({"time": dataset.datetime.data - dataset.datetime.data[0]})
+        dataset = dataset.expand_dims({'batch':1})
+        dataset = dataset.assign_coords({"datetime": (["batch", "time"], dataset.datetime.data.reshape(1, -1))})
+        dataset = xarray.merge([dataset, inputs_static_original])
+        # tisr will be added in extract_inputs_targets_forcings
+        inputs, targets, forcings = data_utils.extract_inputs_targets_forcings(
+            dataset, target_lead_times="6h", **dataclasses.asdict(graphcast_task_config)
+        )
+        assert len(targets.time) == 1
+        predictions, _ = graphcast_fn_jitted(params=graphcast_params, state={}, rng=None, 
+                                          inputs=inputs,
+                                          forcings=forcings,
+                                          targets_template=targets*np.nan,)
+        # predictions does not  have 6h_total_precipitation in the beginning, why?
+        #predictions = predictions.drop_vars("6h_total_precipitation")
+        predictions = predictions.squeeze(dim="batch", drop=True)
+        predictions = _to_numpy_xarray(predictions)
+        #predictions = predictions.assign_coords({"time": targets_template.time})
+
+        assimilated_list.pop(0)
+
+        diff = corrected_pred_prognoistic - inputs_ground_truth_original.drop_vars("toa_incident_solar_radiation")
+        diff_gc = assimilated_list[0] - inputs_ground_truth_original.drop_vars("toa_incident_solar_radiation")
+        diff_interp = measurements_interp_original - inputs_ground_truth_original.drop_vars("toa_incident_solar_radiation")
 
         df_da_pl, df_da_sl = calculate_stat_rmse(diff, data_type="Repaint_DA")
         df_gc_pl, df_gc_sl = calculate_stat_rmse(diff_gc, data_type="GraphCast_Pred")
@@ -185,6 +209,7 @@ if __name__ == "__main__":
     parser.add_argument("--validation_year", type=int, default=2016)
     parser.add_argument("--graphcast_pred_path", type=str, default="/Data/GraphCast_sample/pred/2016_01.zarr")
     parser.add_argument("--weatherbench2_path", type=str, default="/Data/GraphCast_sample/wb2/2016_01.zarr")
+    parser.add_argument("--climatology_path", type=str, default="/Data/GraphCast_sample/climatology.zarr")
     parser.add_argument("--resolution", type=str, default="1deg")
     parser.add_argument("--stats_path", type=str, default="/workspace/stats")
     parser.add_argument("--graphcast_checkpoint_path", type=str, default="/workspace/params/GraphCast_small - ERA5 1979-2015 - resolution 1.0 - pressure levels 13 - mesh 2to5 - precipitation input and output.npz")
@@ -233,7 +258,7 @@ if __name__ == "__main__":
         wandb.login(key=wandb_key)
         name = datetime.now().strftime('%m-%d-%H:%M')
         name += "-autoreg DA" + args.wandb_name
-        wandb.init(project="DA_paper", name=name, config=args)
+        wandb.init(project="DA_rebuttal", name=name, config=args)
         current_file_directory = os.path.dirname(os.path.realpath(__file__))
         wandb.run.log_code(current_file_directory)
 
@@ -265,25 +290,23 @@ if __name__ == "__main__":
     
     @hk.transform_with_state
     def graphcast_fn(inputs: xarray.Dataset,
-                     norm_forcings: xarray.Dataset,
-                     norm_static: xarray.Dataset,
-                     targets_template: xarray.Dataset):
+                     targets_template: xarray.Dataset,
+                     forcings: xarray.Dataset):
         predictor = wrap_graphcast_prediction(graphcast_model_config,
                                               graphcast_task_config,
                                               diffs_stddev_by_level,
                                               mean_by_level,
                                               stddev_by_level,
-                                              normalize=True)
-        return predictor.predict(inputs=inputs,
-                                 norm_forcings=norm_forcings,
-                                 norm_static=norm_static,
-                                 targets_template=targets_template)
+                                              normalize=True,
+                                              wrap_autoregressive=True,)
+        return predictor(inputs, targets_template=targets_template, forcings=forcings)
     
     norm_diff_fn = functools.partial(normalization.normalize, scales=diffs_stddev_by_level, locations=None)
     norm_original_fn = functools.partial(normalization.normalize, scales=stddev_by_level, locations=mean_by_level)
 
     validate_dataset = GraphCastDiffusionDataset(args.graphcast_pred_path.format(args.validation_year), 
                                                  args.weatherbench2_path.format(args.validation_year),
+                                                 climatology_path=args.climatology_path,
                                                  sample_slice=slice(args.dataset_time_offset, args.dataset_time_offset + args.num_autoregressive_steps),
                                                  downsample=args.downsample,
                                                  num_sparse_samples=args.repaint_num_sparse_samples,

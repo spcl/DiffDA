@@ -19,7 +19,7 @@ class TrainingCheckpoint:
     task_config: graphcast.TaskConfig
     model_config: graphcast.ModelConfig
     epoch: int
-    rng: jax.random.PRNGKeyArray
+    rng: jax.Array
     num_train_timesteps: int = 1000
 # TODO: add num_train_timesteps
 

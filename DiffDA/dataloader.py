@@ -1,13 +1,14 @@
 import itertools
 import os
-from typing import Iterable, Iterator, Sequence, Any, Mapping, Union
+from typing import Iterable, Iterator, Sequence, Any, Mapping, Union, Optional
 import jax_dataloader
 import xarray as xr
 import numpy as np
 from jax_dataloader import Dataset
-from graphcast import graphcast, checkpoint
 from scipy.interpolate import RBFInterpolator, griddata
 from scipy.spatial import cKDTree
+import pyinterp
+import pyinterp.backends.xarray
 
 # https://stackoverflow.com/questions/2566412/find-nearest-value-in-numpy-array
 def _get_nearest_idx(array, values, periodic_lon=False):
@@ -36,18 +37,65 @@ def _get_nearest_idx(array, values, periodic_lon=False):
     if periodic_lon:
         idxs[idxs==len(array)-1] = 0
     return idxs
+
+
+class ENS10ERA5Dataset(Dataset):
+    def __init__(self, ens10_path, era5_path, length=None, shuffle=True):
+        self.ens10_ds = xr.open_zarr(ens10_path)
+        self.era5_ds = xr.open_zarr(era5_path)
+        assert len(self.ens10_ds.time) == len(self.era5_ds.time)
+        if shuffle:
+            self.ts = np.random.permutation(len(self.era5_ds.time))
+        else:
+            self.ts = np.arange(len(self.era5_ds.time))
+        slice_example = np.squeeze(self.era5_ds.z.isel(time=0).to_numpy())
+        self.shape = tuple(slice_example.shape)
+        self.length = min(length, len(self.ens10_ds.time)) if length is not None else len(self.ens10_ds.time)
+        self.num_ensemble = self.ens10_ds.dims['number']
+
+    def __len__(self):
+        return self.length*self.num_ensemble
+    
+    def getresolution(self):
+        return self.shape
+    
+    def __getitem__(self, idx):
+        try:
+            idx = int(idx)
+        except:
+            pass
+        if isinstance(idx, int):
+            idx = idx % self.length
+            ie = idx // self.length
+            ens10_slice = self.ens10_ds.z.isel(time=self.ts[idx], number=ie).to_numpy().squeeze()
+            era5_slice = self.era5_ds.z.isel(time=self.ts[idx]).to_numpy().squeeze()
+            time = self.era5_ds.time[self.ts[idx]]
+            dayofyear = float(time.dt.dayofyear) / 365
+            hourofday = float(time.dt.hour) / 24
+            assert len(ens10_slice.shape) == 2
+            assert len(era5_slice.shape) == 2
+            batch_dict = {"ens10": ens10_slice[np.newaxis, np.newaxis, :, :].astype(np.float32), "era5": era5_slice[np.newaxis, np.newaxis, :, :].astype(np.float32), 
+                            "dist_frac": np.array([1.0], dtype=np.float32),
+                            "dayofyear": np.array([dayofyear], dtype=np.float32),
+                            "hourofday": np.array([hourofday], dtype=np.float32)}
+            return batch_dict
+        else:
+            batches = [self.__getitem__(i) for i in idx]
+            return {k: np.concatenate([b[k] for b in batches], axis=0) for k in batches[0].keys()}
         
 class GraphCastDiffusionDataset(Dataset):
     def __init__(self,
                  graphcast_pred_path: str,
                  weatherbench2_path: str,
+                 climatology_path: Optional[str] = None,
                  downsample: bool = False,
                  sample_slice: Union[slice, None] =None,
                  offset: int = 9, # (48/6 + 1), 48h is the lead time, +1 for 2 step prediction
                  num_sparse_samples: int = 0,
                  blur_kernel_size: int = 3,
                  fixed_measurements: bool = False,
-                 disable_pred_offset_check: bool = False) -> None:
+                 disable_pred_offset_check: bool = False,
+                 observation_path: Optional[str] = None) -> None:
         """
         @param graphcast_pred_path: Path to one year of predictions
         @param weatherbench2_path: Path to one year of groundtruth data
@@ -95,15 +143,18 @@ class GraphCastDiffusionDataset(Dataset):
         rename_dict = dict(latitude='lat', longitude='lon')
         self.ds_wb = self.ds_wb.rename(rename_dict)
         self.ds_static = self.ds_static.rename(rename_dict)
-        self.downsample = downsample
 
-        if num_sparse_samples == -1: # -1 indicates using real observation locations in `obs_coords.csv`
-            self.num_sparse_samples = 1944
+        if climatology_path is not None:
+            self.ds_clim = xr.open_zarr(climatology_path).rename(rename_dict)
+        else:
+            self.ds_clim = None
+
+        self.downsample = downsample
+        self.observation_path = observation_path
+
+        if observation_path is not None:
+            self.num_sparse_samples = -1
             self.use_real_obs = True
-            obs_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "obs_coords.csv")
-            coords_latlon = np.loadtxt(obs_path, delimiter=",", skiprows=1)
-            coords_latlon[:, 0] += np.where(coords_latlon[:,0] < 0, 360, 0)
-            self.coords_latlon = coords_latlon
         else:
             self.num_sparse_samples = num_sparse_samples
             self.use_real_obs = False
@@ -118,9 +169,12 @@ class GraphCastDiffusionDataset(Dataset):
             else:
                 nlat = 721
                 nlon = 1440
-            lat = np.linspace(-90, 90, nlat) * np.pi / 180
-            lon = np.linspace(0, 360, nlon) * np.pi / 180
+            lat = np.linspace(-90, 90, nlat)
+            lon = np.linspace(0, 360, nlon)
             lat, lon = np.meshgrid(lat, lon, indexing='ij')
+            self.grid_lonlat = np.stack([lon, lat], axis=-1)
+            lat = np.deg2rad(lat)
+            lon = np.deg2rad(lon)
             z = np.sin(lat)
             y = np.cos(lat) * np.sin(lon)
             x = np.cos(lat) * np.cos(lon)
@@ -153,13 +207,16 @@ class GraphCastDiffusionDataset(Dataset):
                                np.cos(coords_latlon_rad[:, 0]) * np.sin(coords_latlon_rad[:, 1]), 
                                np.sin(coords_latlon_rad[:, 0]) ], axis=-1)
         if self.blur_kernel_size > 0:
-            radius = int(2*self.blur_kernel_size)+1
+            radius = int(4*self.blur_kernel_size)+1
             assert radius > 0
             kernel_size = 2*radius+1
             idx1, idx2 = np.meshgrid(np.arange(-radius, radius+1), np.arange(-radius, radius+1), indexing='ij')
-            kernel = np.exp(-(idx1**2 + idx2**2) / (2*self.blur_kernel_size**2))
             mask_smooth = np.zeros((nlat + 2*radius, nlon + 2*radius), dtype=np.float32)
+            lat_pad = np.pad(grid_lat.data, (radius, radius), mode='edge')
             for i, j in zip(idx_lat, idx_lon):
+                scale = np.cos(np.deg2rad(lat_pad[i:i+kernel_size])) + 0.05
+                scale = scale.reshape((-1, 1))
+                kernel = np.exp(-(idx1**2 + (idx2*scale)**2) / (2*self.blur_kernel_size**2))
                 slice_ij = mask_smooth[i:i+kernel_size, j:j+kernel_size]
                 mask_smooth[i:i+kernel_size, j:j+kernel_size] = np.maximum(slice_ij, kernel)
             mask = mask_smooth[radius:-radius, radius:-radius]
@@ -199,35 +256,84 @@ class GraphCastDiffusionDataset(Dataset):
             raise RuntimeError("Interpolation failed.")
         return ds_interp
     
-    def _interpolate_sparse_samples(self, ds: xr.Dataset, coords_xyz, coords_latlon):
+    def _interpolate_slice_pyinterp(self, ds_slice, coords_lonlat, covariance='matern_12', alpha=600_000, k=9):
+        mesh = pyinterp.RTree()
+        mesh.packing(coords_lonlat, ds_slice)
+        field, neighbors = mesh.universal_kriging(
+            self.grid_lonlat.reshape((-1, 2)),
+            within=False,  # Extrapolation is forbidden
+            radius=2_000_000, # in meters
+            k=k,
+            covariance=covariance,
+            alpha=alpha,
+            num_threads=8)
+        field = field.reshape((self.grid_lonlat.shape[0], self.grid_lonlat.shape[1]))
+        #if fill_nan:
+        #    field = np.where(np.isnan(field), 0, field)
+        assert not np.any(np.isnan(field))
+        return field
+    
+    def _interpolate_2dgrid_to_sparse_pyinterp(self, ds, lon, lat):
+        interpolator = pyinterp.backends.xarray.Grid2D(ds)
+        ds_sparse = interpolator.bivariate(
+            coords=dict(lon=lon, lat=lat)
+            )
+        return ds_sparse
+    
+    def _interpolate_grid_to_sparse_pyinterp(self, ds, lon, lat):
+        da_sparse_list = []
+        for var in ds.data_vars:
+            da = ds[var]
+            if 'level' in da.dims:
+                da_sparse_leveli_list = []
+                for i in range(len(da.level)):
+                    da_level = da.isel(level=i)
+                    da_sparse = self._interpolate_2dgrid_to_sparse_pyinterp(da_level, lon, lat)
+                    da_sparse_leveli_list.append(da_sparse)
+                da_sparse = np.stack(da_sparse_leveli_list, axis=0)
+                da_sparse = xr.DataArray(da_sparse, dims=['level', 'sparse_sample'], name=var, coords={'level': da.level})
+                da_sparse_list.append(da_sparse)
+            else:
+                da_sparse = self._interpolate_2dgrid_to_sparse_pyinterp(da, lon, lat)
+                da_sparse = xr.DataArray(da_sparse, dims=['sparse_sample'], name=var)
+                da_sparse_list.append(da_sparse)
+        ds_sparse = xr.merge(da_sparse_list)
+        return ds_sparse
+    
+    def _interpolate_sparse_samples(self, ds: xr.Dataset, coords_latlon, ds_clim=None):
         if self.blur_kernel_size == 0:
             ds_out = ds.copy()
             return ds_out
         # TODO: only interpolate values within the mask
         ds_out = xr.zeros_like(ds)
-        lat = xr.DataArray(coords_latlon[:, 0], dims=['sparse_sample'])
-        lon = xr.DataArray(coords_latlon[:, 1], dims=['sparse_sample'])
+        lat = coords_latlon[:, 0]
+        lon = coords_latlon[:, 1]
+        coords_lonlat = coords_latlon[:, ::-1]
+
+        if ds_clim is not None:
+            ds_sparse = self._interpolate_grid_to_sparse_pyinterp(ds - ds_clim, lon, lat)
+        else:
+            ds_sparse = self._interpolate_grid_to_sparse_pyinterp(ds, lon, lat)
 
         for var in ds.data_vars:
             da = ds[var]
-            da_samples = da.interp(lat=lat, lon=lon, method='nearest')
+            da_sparse = ds_sparse[var]
             if 'level' in da.dims:
-                da_samples = da_samples.transpose('sparse_sample', 'level')
-            assert coords_xyz.shape[0] == da_samples.shape[0]
-            # gaussian must choose a shape parameter epsilon
-            #interpolator = RBFInterpolator(coords_xyz, da_samples.values, neighbors=5, kernel='cubic', epsilon=0.1)
-            #grid_xyz = self.grid_xyz
-            #nlat, nlon = grid_xyz.shape[:2]
-            #grid_interp = interpolator(grid_xyz.reshape(-1, 3)).reshape(nlat, nlon, -1)
-            if 'level' in da.dims:
-                #dims = ['lat', 'lon', 'level'] # if using RBFInterpolator
                 dims = ['level', 'lat', 'lon']
-                grid_interp = np.stack([self._interpolate_slice(da_samples.isel(level=i).values, coords_xyz) for i in range(len(da.level))], axis=0)
+                #grid_interp = np.stack([self._interpolate_slice(da_samples.isel(level=i).values, coords_xyz) for i in range(len(da.level))], axis=0)
+                da_leveli_interp_list = []
+                for i in range(len(da.level)):
+                    da_sparse_leveli = da_sparse.isel(level=i)
+                    da_leveli_interp = self._interpolate_slice_pyinterp(da_sparse_leveli.values, coords_lonlat)
+                    da_leveli_interp_list.append(da_leveli_interp)
+                da_interp = np.stack(da_leveli_interp_list, axis=0)
             else:
                 dims = ['lat', 'lon']
-                grid_interp = self._interpolate_slice(da_samples.values, coords_xyz)
-                #grid_interp = grid_interp.squeeze(-1) # if using RBFInterpolator
-            ds_out[var] += xr.DataArray(grid_interp, dims=dims)
+                da_interp = self._interpolate_slice_pyinterp(da_sparse.values, coords_lonlat)
+            ds_out[var] += xr.DataArray(da_interp, dims=dims)
+        if ds_clim is not None:
+            ds_out += ds_clim
+            ds_out = ds_out.drop_vars(['dayofyear', 'hour'])
         return ds_out
     
     def _interpolate_sparse_samples_idw(self, ds: xr.Dataset, coords_xyz, coords_latlon, neighbors=5):
@@ -283,6 +389,8 @@ class GraphCastDiffusionDataset(Dataset):
             pass
         if isinstance(idx, int):
             gc_slice = self.ds_gc.isel(datetime=idx)
+            if gc_slice.lat[0].item() > gc_slice.lat[-1].item():
+                gc_slice = gc_slice.isel(lat=slice(None, None, -1)) # the latitude should be in ascending order
             wb_slice = self.ds_wb.isel(datetime=idx).isel(lat=slice(None, None, -1))
             gc_slice = gc_slice.assign_coords(datetime = wb_slice.datetime.values)
             ds_static = self.ds_static.isel(lat=slice(None, None, -1))
@@ -292,23 +400,36 @@ class GraphCastDiffusionDataset(Dataset):
                 ds_static = ds_static.isel(lon=slice(None, None, 4)).interp(lat=np.linspace(-90, 90, 181)) #.expand_dims('batch')
             extra_dict = {}
             if self.num_sparse_samples > 0:
-                for attempt in range(10):
-                    try:
-                        mask, coords_xyz, coords_latlon = self._generate_sparse_samples(self.num_sparse_samples, wb_slice.lat, wb_slice.lon)
-                        mask = xr.DataArray(mask, dims=['lat', 'lon'], coords={'lat': wb_slice.lat, 'lon': wb_slice.lon})
-                        mask = mask.expand_dims(['batch'], axis=0).to_dataset(name='mask')
-                        wb_interp_slice = self._interpolate_sparse_samples(wb_slice.compute(), coords_xyz, coords_latlon)
-                        #wb_interp_slice = self._interpolate_sparse_samples_idw(wb_slice.compute(), coords_xyz, coords_latlon) # Not working now!
-                    except:
-                        print(f"Interpolation attempt {attempt} failed. Trying again.")
-                    else:
-                        break
+                if self.ds_clim is not None:
+                    clim_slice = self.ds_clim.sel(
+                        hour=wb_slice.datetime.dt.hour.item(), 
+                        dayofyear=wb_slice.datetime.dt.dayofyear.item(),
+                        lat=wb_slice.lat,
+                        lon=wb_slice.lon,
+                        level=wb_slice.level)
                 else:
-                    raise RuntimeError("Interpolation failed.")
+                    clim_slice = None
+
+                mask, coords_xyz, coords_latlon = self._generate_sparse_samples(self.num_sparse_samples, wb_slice.lat, wb_slice.lon)
+                mask = xr.DataArray(mask, dims=['lat', 'lon'], coords={'lat': wb_slice.lat, 'lon': wb_slice.lon})
+                mask = mask.expand_dims(['batch'], axis=0).to_dataset(name='mask')
+                if "toa_incident_solar_radiation" in wb_slice.data_vars:
+                    wb_slice_no_tisr = wb_slice.drop_vars(['toa_incident_solar_radiation'])
+                else:
+                    wb_slice_no_tisr = wb_slice
+                wb_interp_slice = self._interpolate_sparse_samples(wb_slice_no_tisr.compute(), coords_latlon, ds_clim=clim_slice)
+                #wb_interp_slice = self._interpolate_sparse_samples_idw(wb_slice.compute(), coords_xyz, coords_latlon) # Not working now!
+
                 wb_interp_slice = wb_interp_slice.expand_dims(['batch', 'time'], axis=[0, 1])
+                assert "toa_incident_solar_radiation" not in wb_interp_slice.data_vars
                 extra_dict = {"mask": mask, 'weatherbench_interp': wb_interp_slice, 'obs_coords': np.expand_dims(coords_latlon, axis=0)}
             wb_slice = wb_slice.expand_dims(['batch', 'time'], axis=[0, 1])
             gc_slice = gc_slice.expand_dims(['batch', 'time'], axis=[0, 1])
+            wb_slice = wb_slice.assign_coords(datetime=('time', wb_slice.datetime.data.reshape(wb_slice.time.data.shape)))
+            gc_slice = gc_slice.assign_coords(datetime=('time', gc_slice.datetime.data.reshape(gc_slice.time.data.shape)))
+            if "toa_incident_solar_radiation" not in wb_slice.data_vars:
+                from graphcast.data_utils import add_tisr_var
+                add_tisr_var(wb_slice)
             batch_dict = {"graphcast": gc_slice.compute(),
                           "weatherbench": wb_slice.compute(),
                           "static": ds_static.compute()}
@@ -341,6 +462,7 @@ class DiffusionDataLoader(Iterable):
                  base_prediction_template: str,
                  weather_bench_template: str,
                  samples_for_year: Mapping[int, slice],
+                 climatology_path: Optional[str] = None,
                  batch_size: int = 1,
                  shuffle: bool = True,
                  drop_last: bool = True,
@@ -363,6 +485,7 @@ class DiffusionDataLoader(Iterable):
         self.datasets = [
             GraphCastDiffusionDataset(base_prediction_template.format(y),
                                       weather_bench_template.format(y),
+                                      climatology_path=climatology_path,
                                       downsample=downsample,
                                       sample_slice=s,
                                       offset=offset,
@@ -389,7 +512,8 @@ def load_normalization(path: str, downsample: bool = False) -> (Dataset, Dataset
     stddev_by_level = xr.load_dataset(f"{path}/stddev_by_level.nc").compute()
     return diffs_stddev_by_level, mean_by_level, stddev_by_level
 
-def load_model_checkpoint(path: str) -> tuple[graphcast.ModelConfig, graphcast.TaskConfig, dict]:
+def load_model_checkpoint(path: str) -> "tuple[graphcast.ModelConfig, graphcast.TaskConfig, dict]":
+    from graphcast import graphcast, checkpoint
     with open(path, "rb") as f:
         ckpt = checkpoint.load(f, graphcast.CheckPoint)
     model_config = ckpt.model_config

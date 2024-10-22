@@ -7,6 +7,7 @@ from tqdm import tqdm
 import wandb
 
 from graphcast import graphcast, normalization, casting, xarray_jax, xarray_tree
+import graphcast.autoregressive as autoregressive
 from graphcast.data_utils import get_day_progress, get_year_progress, featurize_progress
 
 def get_forcing(time: xarray.DataArray, lon: xarray.DataArray, timesteps: np.ndarray, num_timesteps: int, batch_size: int = 0, forcing_type: str = "diffusion") -> None:
@@ -96,6 +97,10 @@ def wrap_graphcast_prediction(model_config: graphcast.ModelConfig,
             mean_by_level=mean_by_level,
             stddev_by_level=stddev_by_level)
 
+    if wrap_autoregressive:
+        # Wraps everything so the one-step model can produce trajectories.
+        predictor = autoregressive.Predictor(predictor, gradient_checkpointing=True)
+
     return predictor
 
 def _to_numpy_xarray(array) -> xarray.Dataset:
@@ -147,7 +152,7 @@ def validation_step(forward_fn: hk.TransformedWithState, norm_original_fn, norm_
         norm_static = norm_original_fn(inputs_static)
         if mode == "ddpm":
             corrected_pred, _ = forward_fn.apply(params, state, None, norm_inputs_pred, norm_forcings, norm_static, rng_batch, progress_bar=progress_bar)
-        elif mode == "repaint":
+        elif mode == "repaint" or mode == "dps":
             mask = batch["mask"]
             measurements_interp = batch["weatherbench_interp"].drop_vars(["datetime", "toa_incident_solar_radiation"])
             mask = _to_jax_xarray(mask, device)["mask"] # convert from dataset to dataarray
