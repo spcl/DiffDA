@@ -1,0 +1,937 @@
+2025-03-19 18:09:50,216 - INFO - 程序开始执行
+2025-03-19 18:09:50,216 - INFO - MEMORY [程序开始] - RSS: 0.23 GB, VMS: 3.08 GB
+2025-03-19 18:09:50,216 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=1, test_year_start=2015, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-19 18:09:50,216 - INFO - Python版本: 3.10.10 (main, Mar 21 2023, 18:45:11) [GCC 11.2.0]
+2025-03-19 18:09:50,216 - INFO - JAX版本: 0.4.23
+2025-03-20 01:19:21,588 - INFO - 程序开始执行
+2025-03-20 01:19:21,588 - INFO - MEMORY [程序开始] - RSS: 0.23 GB, VMS: 3.08 GB
+2025-03-20 01:19:21,588 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=1, test_year_start=2015, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 01:19:21,588 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 01:19:21,588 - INFO - JAX版本: 0.4.23
+2025-03-20 01:19:21,885 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 01:19:21,885 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 01:19:21,886 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 01:19:21,886 - INFO - 开始执行函数: main
+2025-03-20 01:19:21,886 - INFO - MEMORY [开始 main] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:19:21,886 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=13, 自回归步数=1
+2025-03-20 01:19:21,886 - INFO - 测试年份: [2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 01:19:21,886 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 01:19:21,886 - INFO - MEMORY [加载模型前] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:19:21,886 - INFO - 开始加载模型
+2025-03-20 01:24:22,145 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7a8f23102230>: Failed to establish a new connection: [Errno 101] Network is unreachable')': /token
+2025-03-20 01:24:34,611 - INFO - 程序开始执行
+2025-03-20 01:24:34,611 - INFO - MEMORY [程序开始] - RSS: 0.23 GB, VMS: 3.08 GB
+2025-03-20 01:24:34,611 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=1, test_year_start=2015, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 01:24:34,611 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 01:24:34,611 - INFO - JAX版本: 0.4.23
+2025-03-20 01:24:34,905 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 01:24:34,905 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 01:24:34,906 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 01:24:34,906 - INFO - 开始执行函数: main
+2025-03-20 01:24:34,906 - INFO - MEMORY [开始 main] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:24:34,906 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=13, 自回归步数=1
+2025-03-20 01:24:34,906 - INFO - 测试年份: [2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 01:24:34,906 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 01:24:34,906 - INFO - MEMORY [加载模型前] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:24:34,906 - INFO - 开始加载模型
+2025-03-20 01:25:21,744 - INFO - MEMORY [加载模型后] - RSS: 0.67 GB, VMS: 21.38 GB
+2025-03-20 01:25:21,745 - INFO - 模型加载完成
+2025-03-20 01:25:21,745 - INFO - 开始加载数据集: 年份=2015, 步数=1
+2025-03-20 01:25:21,745 - INFO - MEMORY [加载数据集前] - RSS: 0.67 GB, VMS: 21.38 GB
+2025-03-20 01:25:26,825 - INFO - MEMORY [加载数据集后] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:25:26,825 - INFO - 数据集加载完成, 包含 1459 个样本
+2025-03-20 01:25:26,825 - INFO - 开始JIT编译前向函数
+2025-03-20 01:25:26,825 - INFO - MEMORY [JIT编译前] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:25:26,825 - INFO - MEMORY [JIT编译后] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:25:26,825 - INFO - JIT编译完成
+2025-03-20 01:25:26,825 - INFO - 设置变量权重: {'2m_temperature': 0, 'mean_sea_level_pressure': 0, '10m_v_component_of_wind': 0, '10m_u_component_of_wind': 0, 'total_precipitation_6hr': 0, 'temperature': 0, 'geopotential': 1, 'u_component_of_wind': 0, 'v_component_of_wind': 0, 'vertical_velocity': 0, 'specific_humidity': 0}
+2025-03-20 01:25:26,825 - INFO - 创建损失函数
+2025-03-20 01:25:26,825 - INFO - 开始评估模型
+2025-03-20 01:25:26,825 - INFO - MEMORY [评估模型前] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:25:26,825 - INFO - 开始执行函数: evaluate_model
+2025-03-20 01:25:26,825 - INFO - MEMORY [开始 evaluate_model] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:25:26,826 - INFO - 评估样本 1/1459
+2025-03-20 01:25:26,826 - INFO - MEMORY [获取批次 1 前] - RSS: 0.83 GB, VMS: 21.67 GB
+2025-03-20 01:25:53,368 - INFO - MEMORY [获取批次 1 后] - RSS: 2.22 GB, VMS: 25.18 GB
+2025-03-20 01:25:53,368 - INFO - 开始提取输入、目标和强制项
+2025-03-20 01:25:53,782 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 3.45 GB, VMS: 26.41 GB
+2025-03-20 01:25:53,783 - INFO - 开始计算损失
+2025-03-20 01:25:53,783 - INFO - 开始执行函数: rmse_forward
+2025-03-20 01:25:53,783 - INFO - MEMORY [开始 rmse_forward] - RSS: 3.45 GB, VMS: 26.41 GB
+2025-03-20 01:25:53,783 - INFO - 开始执行预测
+2025-03-20 01:25:53,783 - INFO - MEMORY [预测前] - RSS: 3.45 GB, VMS: 26.41 GB
+2025-03-20 01:25:54,523 - WARNING - Skipping gradient checkpointing for sequence length of 1
+2025-03-20 01:34:19,487 - INFO - 程序开始执行
+2025-03-20 01:34:19,487 - INFO - MEMORY [程序开始] - RSS: 0.23 GB, VMS: 3.08 GB
+2025-03-20 01:34:19,487 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=2, autoregressive_steps=1, test_year_start=2015, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 01:34:19,487 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 01:34:19,487 - INFO - JAX版本: 0.4.23
+2025-03-20 01:34:19,802 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 01:34:19,803 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 01:34:19,803 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 01:34:19,804 - INFO - 开始执行函数: main
+2025-03-20 01:34:19,804 - INFO - MEMORY [开始 main] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:34:19,804 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=2, 自回归步数=1
+2025-03-20 01:34:19,804 - INFO - 测试年份: [2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 01:34:19,804 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 01:34:19,804 - INFO - MEMORY [加载模型前] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:34:19,804 - INFO - 开始加载模型
+2025-03-20 01:34:21,338 - ERROR - 主函数执行失败: No model with given resolution (1.0 deg) and pressure levels (2) found.
+2025-03-20 01:34:21,339 - ERROR - Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 280, in main
+    run_forward, checkpoint = graphcast_wrapper.retrieve_model(resolution, pressure_levels, Path(data_path))
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_wrapper.py", line 91, in retrieve_model
+    raise FileNotFoundError(
+FileNotFoundError: No model with given resolution (1.0 deg) and pressure levels (2) found.
+
+2025-03-20 01:34:21,339 - ERROR - 函数 main 执行出错: No model with given resolution (1.0 deg) and pressure levels (2) found.
+2025-03-20 01:34:21,339 - ERROR - Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 280, in main
+    run_forward, checkpoint = graphcast_wrapper.retrieve_model(resolution, pressure_levels, Path(data_path))
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_wrapper.py", line 91, in retrieve_model
+    raise FileNotFoundError(
+FileNotFoundError: No model with given resolution (1.0 deg) and pressure levels (2) found.
+
+2025-03-20 01:34:21,339 - ERROR - 程序执行出错: No model with given resolution (1.0 deg) and pressure levels (2) found.
+2025-03-20 01:34:21,340 - ERROR - Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 365, in <module>
+    main(args.resolution,
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 280, in main
+    run_forward, checkpoint = graphcast_wrapper.retrieve_model(resolution, pressure_levels, Path(data_path))
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_wrapper.py", line 91, in retrieve_model
+    raise FileNotFoundError(
+FileNotFoundError: No model with given resolution (1.0 deg) and pressure levels (2) found.
+
+2025-03-20 01:34:35,450 - INFO - 程序开始执行
+2025-03-20 01:34:35,450 - INFO - MEMORY [程序开始] - RSS: 0.24 GB, VMS: 3.08 GB
+2025-03-20 01:34:35,451 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=1, test_year_start=2015, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 01:34:35,451 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 01:34:35,451 - INFO - JAX版本: 0.4.23
+2025-03-20 01:34:35,755 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 01:34:35,756 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 01:34:35,756 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 01:34:35,756 - INFO - 开始执行函数: main
+2025-03-20 01:34:35,757 - INFO - MEMORY [开始 main] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:34:35,757 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=13, 自回归步数=1
+2025-03-20 01:34:35,757 - INFO - 测试年份: [2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 01:34:35,757 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 01:34:35,757 - INFO - MEMORY [加载模型前] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:34:35,757 - INFO - 开始加载模型
+2025-03-20 01:35:26,900 - INFO - MEMORY [加载模型后] - RSS: 0.67 GB, VMS: 21.38 GB
+2025-03-20 01:35:26,900 - INFO - 模型加载完成
+2025-03-20 01:35:26,900 - INFO - 开始加载数据集: 年份=2015, 步数=1
+2025-03-20 01:35:26,900 - INFO - MEMORY [加载数据集前] - RSS: 0.67 GB, VMS: 21.38 GB
+2025-03-20 01:35:30,365 - INFO - MEMORY [加载数据集后] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:35:30,365 - INFO - 数据集加载完成, 包含 1459 个样本
+2025-03-20 01:35:30,365 - INFO - 开始JIT编译前向函数
+2025-03-20 01:35:30,365 - INFO - MEMORY [JIT编译前] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:35:30,365 - INFO - MEMORY [JIT编译后] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:35:30,365 - INFO - JIT编译完成
+2025-03-20 01:35:30,365 - INFO - 设置变量权重: {'2m_temperature': 0, 'mean_sea_level_pressure': 0, '10m_v_component_of_wind': 0, '10m_u_component_of_wind': 0, 'total_precipitation_6hr': 0, 'temperature': 0, 'geopotential': 1, 'u_component_of_wind': 0, 'v_component_of_wind': 0, 'vertical_velocity': 0, 'specific_humidity': 0}
+2025-03-20 01:35:30,365 - INFO - 创建损失函数
+2025-03-20 01:35:30,365 - INFO - 开始评估模型
+2025-03-20 01:35:30,365 - INFO - MEMORY [评估模型前] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:35:30,365 - INFO - 开始执行函数: evaluate_model
+2025-03-20 01:35:30,365 - INFO - MEMORY [开始 evaluate_model] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:35:30,366 - INFO - 评估样本 1/1459
+2025-03-20 01:35:30,366 - INFO - MEMORY [获取批次 1 前] - RSS: 0.83 GB, VMS: 21.67 GB
+2025-03-20 01:35:43,794 - INFO - MEMORY [获取批次 1 后] - RSS: 2.40 GB, VMS: 25.36 GB
+2025-03-20 01:35:43,794 - INFO - 开始提取输入、目标和强制项
+2025-03-20 01:35:43,968 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 3.63 GB, VMS: 26.59 GB
+2025-03-20 01:35:43,968 - INFO - 开始计算损失
+2025-03-20 01:35:43,968 - INFO - 开始执行函数: rmse_forward
+2025-03-20 01:35:43,968 - INFO - MEMORY [开始 rmse_forward] - RSS: 3.63 GB, VMS: 26.59 GB
+2025-03-20 01:35:43,968 - INFO - 开始执行预测
+2025-03-20 01:35:43,968 - INFO - MEMORY [预测前] - RSS: 3.63 GB, VMS: 26.59 GB
+2025-03-20 01:35:44,349 - WARNING - Skipping gradient checkpointing for sequence length of 1
+2025-03-20 01:39:38,771 - INFO - 程序开始执行
+2025-03-20 01:39:38,771 - INFO - MEMORY [程序开始] - RSS: 0.23 GB, VMS: 3.08 GB
+2025-03-20 01:39:38,771 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=1, test_year_start=2015, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 01:39:38,772 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 01:39:38,772 - INFO - JAX版本: 0.4.23
+2025-03-20 01:39:39,073 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 01:39:39,074 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 01:39:39,075 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 01:39:39,075 - INFO - 开始执行函数: main
+2025-03-20 01:39:39,075 - INFO - MEMORY [开始 main] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:39:39,075 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=13, 自回归步数=1
+2025-03-20 01:39:39,075 - INFO - 测试年份: [2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 01:39:39,075 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 01:39:39,075 - INFO - MEMORY [加载模型前] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:39:39,075 - INFO - 开始加载模型
+2025-03-20 01:40:28,718 - INFO - MEMORY [加载模型后] - RSS: 0.67 GB, VMS: 21.38 GB
+2025-03-20 01:40:28,719 - INFO - 模型加载完成
+2025-03-20 01:40:28,719 - INFO - 开始加载数据集: 年份=2015, 步数=1
+2025-03-20 01:40:28,719 - INFO - MEMORY [加载数据集前] - RSS: 0.67 GB, VMS: 21.38 GB
+2025-03-20 01:40:34,115 - INFO - MEMORY [加载数据集后] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:40:34,115 - INFO - 数据集加载完成, 包含 1459 个样本
+2025-03-20 01:40:34,115 - INFO - 开始JIT编译前向函数
+2025-03-20 01:40:34,115 - INFO - MEMORY [JIT编译前] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:40:34,115 - INFO - MEMORY [JIT编译后] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:40:34,115 - INFO - JIT编译完成
+2025-03-20 01:40:34,115 - INFO - 设置变量权重: {'2m_temperature': 0, 'mean_sea_level_pressure': 0, '10m_v_component_of_wind': 0, '10m_u_component_of_wind': 0, 'total_precipitation_6hr': 0, 'temperature': 0, 'geopotential': 1, 'u_component_of_wind': 0, 'v_component_of_wind': 0, 'vertical_velocity': 0, 'specific_humidity': 0}
+2025-03-20 01:40:34,115 - INFO - 创建损失函数
+2025-03-20 01:40:34,115 - INFO - 开始评估模型
+2025-03-20 01:40:34,115 - INFO - MEMORY [评估模型前] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:40:34,115 - INFO - 开始执行函数: evaluate_model
+2025-03-20 01:40:34,115 - INFO - MEMORY [开始 evaluate_model] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:40:34,116 - INFO - 评估样本 1/1459
+2025-03-20 01:40:34,116 - INFO - MEMORY [获取批次 1 前] - RSS: 0.83 GB, VMS: 21.67 GB
+2025-03-20 01:40:48,277 - INFO - MEMORY [获取批次 1 后] - RSS: 2.30 GB, VMS: 25.24 GB
+2025-03-20 01:40:48,277 - INFO - 开始提取输入、目标和强制项
+2025-03-20 01:40:48,454 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 3.53 GB, VMS: 26.47 GB
+2025-03-20 01:40:48,454 - INFO - 开始计算损失
+2025-03-20 01:40:48,454 - INFO - 开始执行函数: rmse_forward
+2025-03-20 01:40:48,454 - INFO - MEMORY [开始 rmse_forward] - RSS: 3.53 GB, VMS: 26.47 GB
+2025-03-20 01:40:48,454 - INFO - 开始执行预测
+2025-03-20 01:40:48,454 - INFO - MEMORY [预测前] - RSS: 3.53 GB, VMS: 26.47 GB
+2025-03-20 01:40:48,790 - WARNING - Skipping gradient checkpointing for sequence length of 1
+2025-03-20 01:41:07,664 - ERROR - RMSE计算失败: 'builtin_function_or_method' object has no attribute 'Traceback'
+2025-03-20 01:41:07,664 - ERROR - jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 223, in rmse_forward
+    predictions = rollout.chunked_prediction(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 68, in chunked_prediction
+    for prediction_chunk in chunked_prediction_generator(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 164, in chunked_prediction_generator
+    predictions = predictor_fn(
+AttributeError: 'builtin_function_or_method' object has no attribute 'Traceback'
+
+2025-03-20 01:41:07,664 - ERROR - 函数 rmse_forward 执行出错: 'builtin_function_or_method' object has no attribute 'Traceback'
+2025-03-20 01:41:07,664 - ERROR - jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 223, in rmse_forward
+    predictions = rollout.chunked_prediction(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 68, in chunked_prediction
+    for prediction_chunk in chunked_prediction_generator(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 164, in chunked_prediction_generator
+    predictions = predictor_fn(
+AttributeError: 'builtin_function_or_method' object has no attribute 'Traceback'
+
+2025-03-20 01:41:07,664 - ERROR - 评估样本 1 失败: 'builtin_function_or_method' object has no attribute 'Traceback'
+2025-03-20 01:41:07,664 - ERROR - jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 188, in evaluate_model
+    cost = fwd_cost_fn(inputs, targets, forcings)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 223, in rmse_forward
+    predictions = rollout.chunked_prediction(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 68, in chunked_prediction
+    for prediction_chunk in chunked_prediction_generator(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 164, in chunked_prediction_generator
+    predictions = predictor_fn(
+AttributeError: 'builtin_function_or_method' object has no attribute 'Traceback'
+
+2025-03-20 01:41:07,664 - ERROR - 函数 evaluate_model 执行出错: 'builtin_function_or_method' object has no attribute 'Traceback'
+2025-03-20 01:41:07,664 - ERROR - jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 188, in evaluate_model
+    cost = fwd_cost_fn(inputs, targets, forcings)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 223, in rmse_forward
+    predictions = rollout.chunked_prediction(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 68, in chunked_prediction
+    for prediction_chunk in chunked_prediction_generator(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 164, in chunked_prediction_generator
+    predictions = predictor_fn(
+AttributeError: 'builtin_function_or_method' object has no attribute 'Traceback'
+
+2025-03-20 01:41:07,664 - ERROR - 主函数执行失败: 'builtin_function_or_method' object has no attribute 'Traceback'
+2025-03-20 01:41:07,664 - ERROR - jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 325, in main
+    evaluate_model(loss_function, checkpoint.task_config, dataset, autoregressive_steps=autoregressive_steps)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 188, in evaluate_model
+    cost = fwd_cost_fn(inputs, targets, forcings)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 223, in rmse_forward
+    predictions = rollout.chunked_prediction(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 68, in chunked_prediction
+    for prediction_chunk in chunked_prediction_generator(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 164, in chunked_prediction_generator
+    predictions = predictor_fn(
+AttributeError: 'builtin_function_or_method' object has no attribute 'Traceback'
+
+2025-03-20 01:41:07,665 - ERROR - 函数 main 执行出错: 'builtin_function_or_method' object has no attribute 'Traceback'
+2025-03-20 01:41:07,665 - ERROR - jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 325, in main
+    evaluate_model(loss_function, checkpoint.task_config, dataset, autoregressive_steps=autoregressive_steps)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 188, in evaluate_model
+    cost = fwd_cost_fn(inputs, targets, forcings)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 223, in rmse_forward
+    predictions = rollout.chunked_prediction(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 68, in chunked_prediction
+    for prediction_chunk in chunked_prediction_generator(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 164, in chunked_prediction_generator
+    predictions = predictor_fn(
+AttributeError: 'builtin_function_or_method' object has no attribute 'Traceback'
+
+2025-03-20 01:41:07,665 - ERROR - 程序执行出错: 'builtin_function_or_method' object has no attribute 'Traceback'
+2025-03-20 01:41:07,665 - ERROR - jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 365, in <module>
+    main(args.resolution,
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 325, in main
+    evaluate_model(loss_function, checkpoint.task_config, dataset, autoregressive_steps=autoregressive_steps)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 188, in evaluate_model
+    cost = fwd_cost_fn(inputs, targets, forcings)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 223, in rmse_forward
+    predictions = rollout.chunked_prediction(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 68, in chunked_prediction
+    for prediction_chunk in chunked_prediction_generator(
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast/rollout.py", line 164, in chunked_prediction_generator
+    predictions = predictor_fn(
+AttributeError: 'builtin_function_or_method' object has no attribute 'Traceback'
+
+2025-03-20 01:44:24,984 - INFO - 程序开始执行
+2025-03-20 01:44:24,984 - INFO - MEMORY [程序开始] - RSS: 0.23 GB, VMS: 3.08 GB
+2025-03-20 01:44:24,984 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=1, test_year_start=2015, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 01:44:24,984 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 01:44:24,984 - INFO - JAX版本: 0.4.23
+2025-03-20 01:44:25,329 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 01:44:25,330 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 01:44:25,331 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 01:44:25,331 - INFO - 开始执行函数: main
+2025-03-20 01:44:25,331 - INFO - MEMORY [开始 main] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:44:25,331 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=13, 自回归步数=1
+2025-03-20 01:44:25,331 - INFO - 测试年份: [2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 01:44:25,331 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 01:44:25,331 - INFO - MEMORY [加载模型前] - RSS: 0.52 GB, VMS: 21.22 GB
+2025-03-20 01:44:25,331 - INFO - 开始加载模型
+2025-03-20 01:45:12,869 - INFO - MEMORY [加载模型后] - RSS: 0.67 GB, VMS: 21.38 GB
+2025-03-20 01:45:12,869 - INFO - 模型加载完成
+2025-03-20 01:45:12,869 - INFO - 开始加载数据集: 年份=2015, 步数=1
+2025-03-20 01:45:12,869 - INFO - MEMORY [加载数据集前] - RSS: 0.67 GB, VMS: 21.38 GB
+2025-03-20 01:45:16,520 - INFO - MEMORY [加载数据集后] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:45:16,520 - INFO - 数据集加载完成, 包含 1459 个样本
+2025-03-20 01:45:16,520 - INFO - 开始JIT编译前向函数
+2025-03-20 01:45:16,520 - INFO - MEMORY [JIT编译前] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:45:16,520 - INFO - MEMORY [JIT编译后] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:45:16,520 - INFO - JIT编译完成
+2025-03-20 01:45:16,520 - INFO - 设置变量权重: {'2m_temperature': 0, 'mean_sea_level_pressure': 0, '10m_v_component_of_wind': 0, '10m_u_component_of_wind': 0, 'total_precipitation_6hr': 0, 'temperature': 0, 'geopotential': 1, 'u_component_of_wind': 0, 'v_component_of_wind': 0, 'vertical_velocity': 0, 'specific_humidity': 0}
+2025-03-20 01:45:16,520 - INFO - 创建损失函数
+2025-03-20 01:45:16,520 - INFO - 开始评估模型
+2025-03-20 01:45:16,520 - INFO - MEMORY [评估模型前] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:45:16,520 - INFO - 开始执行函数: evaluate_model
+2025-03-20 01:45:16,520 - INFO - MEMORY [开始 evaluate_model] - RSS: 0.83 GB, VMS: 21.60 GB
+2025-03-20 01:45:16,521 - INFO - 评估样本 1/1459
+2025-03-20 01:45:16,521 - INFO - MEMORY [获取批次 1 前] - RSS: 0.83 GB, VMS: 21.67 GB
+2025-03-20 01:45:28,773 - INFO - MEMORY [获取批次 1 后] - RSS: 2.34 GB, VMS: 25.30 GB
+2025-03-20 01:45:28,773 - INFO - 开始提取输入、目标和强制项
+2025-03-20 01:45:28,954 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 3.57 GB, VMS: 26.53 GB
+2025-03-20 01:45:28,954 - INFO - 开始计算损失
+2025-03-20 01:45:28,954 - INFO - 开始执行函数: rmse_forward
+2025-03-20 01:45:28,954 - INFO - MEMORY [开始 rmse_forward] - RSS: 3.57 GB, VMS: 26.53 GB
+2025-03-20 01:45:28,954 - INFO - 开始执行预测
+2025-03-20 01:45:28,954 - INFO - MEMORY [预测前] - RSS: 3.57 GB, VMS: 26.53 GB
+2025-03-20 01:45:29,316 - WARNING - Skipping gradient checkpointing for sequence length of 1
+2025-03-20 03:44:26,801 - INFO - MEMORY [预测后] - RSS: 5.35 GB, VMS: 45.41 GB
+2025-03-20 03:44:26,802 - INFO - 预测完成
+2025-03-20 03:44:26,802 - INFO - 开始计算加权误差
+2025-03-20 03:44:26,932 - INFO - MEMORY [误差计算后] - RSS: 5.35 GB, VMS: 45.41 GB
+2025-03-20 03:44:26,932 - INFO - 误差计算完成
+2025-03-20 03:44:26,933 - INFO - RMSE: 50.2601
+2025-03-20 03:44:26,934 - INFO - MEMORY [结束 rmse_forward] - RSS: 5.05 GB, VMS: 45.11 GB
+2025-03-20 03:44:26,934 - INFO - 成功执行函数: rmse_forward
+2025-03-20 03:44:26,934 - INFO - MEMORY [计算损失后] - RSS: 5.05 GB, VMS: 45.11 GB
+2025-03-20 03:44:26,934 - INFO - 样本 1 损失: 50.2601
+2025-03-20 03:44:26,977 - INFO - 评估样本 2/1459
+2025-03-20 03:44:26,977 - INFO - MEMORY [获取批次 2 前] - RSS: 5.05 GB, VMS: 45.10 GB
+2025-03-20 03:44:41,469 - INFO - MEMORY [获取批次 2 后] - RSS: 5.13 GB, VMS: 45.12 GB
+2025-03-20 03:44:41,469 - INFO - 开始提取输入、目标和强制项
+2025-03-20 03:44:41,638 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 4.98 GB, VMS: 44.97 GB
+2025-03-20 03:44:41,638 - INFO - 开始计算损失
+2025-03-20 03:44:41,638 - INFO - 开始执行函数: rmse_forward
+2025-03-20 03:44:41,638 - INFO - MEMORY [开始 rmse_forward] - RSS: 4.98 GB, VMS: 44.97 GB
+2025-03-20 03:44:41,638 - INFO - 开始执行预测
+2025-03-20 03:44:41,638 - INFO - MEMORY [预测前] - RSS: 4.98 GB, VMS: 44.97 GB
+2025-03-20 05:43:18,201 - INFO - MEMORY [预测后] - RSS: 5.79 GB, VMS: 45.27 GB
+2025-03-20 05:43:18,201 - INFO - 预测完成
+2025-03-20 05:43:18,201 - INFO - 开始计算加权误差
+2025-03-20 05:43:18,356 - INFO - MEMORY [误差计算后] - RSS: 5.79 GB, VMS: 45.27 GB
+2025-03-20 05:43:18,356 - INFO - 误差计算完成
+2025-03-20 05:43:18,356 - INFO - RMSE: 56.6712
+2025-03-20 05:43:18,363 - INFO - MEMORY [结束 rmse_forward] - RSS: 5.48 GB, VMS: 44.97 GB
+2025-03-20 05:43:18,363 - INFO - 成功执行函数: rmse_forward
+2025-03-20 05:43:18,363 - INFO - MEMORY [计算损失后] - RSS: 5.48 GB, VMS: 44.97 GB
+2025-03-20 05:43:18,363 - INFO - 样本 2 损失: 56.6712
+2025-03-20 05:43:18,407 - INFO - 评估样本 3/1459
+2025-03-20 05:43:18,407 - INFO - MEMORY [获取批次 3 前] - RSS: 5.48 GB, VMS: 44.96 GB
+2025-03-20 05:43:39,024 - INFO - MEMORY [获取批次 3 后] - RSS: 5.52 GB, VMS: 44.97 GB
+2025-03-20 05:43:39,025 - INFO - 开始提取输入、目标和强制项
+2025-03-20 05:43:39,194 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 5.62 GB, VMS: 45.08 GB
+2025-03-20 05:43:39,194 - INFO - 开始计算损失
+2025-03-20 05:43:39,194 - INFO - 开始执行函数: rmse_forward
+2025-03-20 05:43:39,194 - INFO - MEMORY [开始 rmse_forward] - RSS: 5.62 GB, VMS: 45.08 GB
+2025-03-20 05:43:39,194 - INFO - 开始执行预测
+2025-03-20 05:43:39,194 - INFO - MEMORY [预测前] - RSS: 5.62 GB, VMS: 45.08 GB
+2025-03-20 07:42:15,876 - INFO - MEMORY [预测后] - RSS: 5.92 GB, VMS: 45.38 GB
+2025-03-20 07:42:15,876 - INFO - 预测完成
+2025-03-20 07:42:15,876 - INFO - 开始计算加权误差
+2025-03-20 07:42:16,012 - INFO - MEMORY [误差计算后] - RSS: 5.92 GB, VMS: 45.38 GB
+2025-03-20 07:42:16,012 - INFO - 误差计算完成
+2025-03-20 07:42:16,012 - INFO - RMSE: 48.9405
+2025-03-20 07:42:16,014 - INFO - MEMORY [结束 rmse_forward] - RSS: 5.62 GB, VMS: 45.07 GB
+2025-03-20 07:42:16,014 - INFO - 成功执行函数: rmse_forward
+2025-03-20 07:42:16,014 - INFO - MEMORY [计算损失后] - RSS: 5.62 GB, VMS: 45.07 GB
+2025-03-20 07:42:16,014 - INFO - 样本 3 损失: 48.9405
+2025-03-20 07:42:16,062 - INFO - 评估样本 4/1459
+2025-03-20 07:42:16,063 - INFO - MEMORY [获取批次 4 前] - RSS: 5.61 GB, VMS: 45.07 GB
+2025-03-20 07:42:34,774 - INFO - MEMORY [获取批次 4 后] - RSS: 5.64 GB, VMS: 45.08 GB
+2025-03-20 07:42:34,774 - INFO - 开始提取输入、目标和强制项
+2025-03-20 07:42:34,937 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 5.54 GB, VMS: 44.98 GB
+2025-03-20 07:42:34,937 - INFO - 开始计算损失
+2025-03-20 07:42:34,937 - INFO - 开始执行函数: rmse_forward
+2025-03-20 07:42:34,938 - INFO - MEMORY [开始 rmse_forward] - RSS: 5.54 GB, VMS: 44.98 GB
+2025-03-20 07:42:34,938 - INFO - 开始执行预测
+2025-03-20 07:42:34,938 - INFO - MEMORY [预测前] - RSS: 5.54 GB, VMS: 44.98 GB
+2025-03-20 08:22:30,698 - INFO - 程序开始执行
+2025-03-20 08:22:30,698 - INFO - MEMORY [程序开始] - RSS: 0.23 GB, VMS: 3.08 GB
+2025-03-20 08:22:30,698 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=1, test_year_start=1979, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 08:22:30,698 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 08:22:30,698 - INFO - JAX版本: 0.4.23
+2025-03-20 08:22:31,041 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 08:22:31,041 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 08:22:31,042 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 08:22:31,042 - INFO - 开始执行函数: main
+2025-03-20 08:22:31,042 - INFO - MEMORY [开始 main] - RSS: 0.58 GB, VMS: 21.64 GB
+2025-03-20 08:22:31,042 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=13, 自回归步数=1
+2025-03-20 08:22:31,042 - INFO - 测试年份: [1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 08:22:31,042 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 08:22:31,042 - INFO - MEMORY [加载模型前] - RSS: 0.58 GB, VMS: 21.64 GB
+2025-03-20 08:22:31,042 - INFO - 开始加载模型
+2025-03-20 08:26:31,288 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bcb327fdf00>: Failed to establish a new connection: [Errno 101] Network is unreachable')': /token
+2025-03-20 08:26:58,486 - INFO - 程序开始执行
+2025-03-20 08:26:58,486 - INFO - MEMORY [程序开始] - RSS: 0.24 GB, VMS: 3.08 GB
+2025-03-20 08:26:58,486 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=1, test_year_start=1979, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 08:26:58,486 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 08:26:58,486 - INFO - JAX版本: 0.4.23
+2025-03-20 08:26:58,835 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 08:26:58,835 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 08:26:58,836 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 08:26:58,836 - INFO - 开始执行函数: main
+2025-03-20 08:26:58,836 - INFO - MEMORY [开始 main] - RSS: 0.58 GB, VMS: 21.64 GB
+2025-03-20 08:26:58,836 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=13, 自回归步数=1
+2025-03-20 08:26:58,836 - INFO - 测试年份: [1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 08:26:58,836 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 08:26:58,836 - INFO - MEMORY [加载模型前] - RSS: 0.58 GB, VMS: 21.64 GB
+2025-03-20 08:26:58,836 - INFO - 开始加载模型
+2025-03-20 08:27:48,887 - INFO - MEMORY [加载模型后] - RSS: 0.73 GB, VMS: 21.79 GB
+2025-03-20 08:27:48,887 - INFO - 模型加载完成
+2025-03-20 08:27:48,887 - INFO - 开始加载数据集: 年份=1979, 步数=1
+2025-03-20 08:27:48,887 - INFO - MEMORY [加载数据集前] - RSS: 0.73 GB, VMS: 21.79 GB
+2025-03-20 08:27:53,945 - INFO - MEMORY [加载数据集后] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 08:27:53,945 - INFO - 数据集加载完成, 包含 1459 个样本
+2025-03-20 08:27:53,945 - INFO - 开始JIT编译前向函数
+2025-03-20 08:27:53,945 - INFO - MEMORY [JIT编译前] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 08:27:53,945 - INFO - MEMORY [JIT编译后] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 08:27:53,945 - INFO - JIT编译完成
+2025-03-20 08:27:53,945 - INFO - 设置变量权重: {'2m_temperature': 0, 'mean_sea_level_pressure': 0, '10m_v_component_of_wind': 0, '10m_u_component_of_wind': 0, 'total_precipitation_6hr': 0, 'temperature': 0, 'geopotential': 1, 'u_component_of_wind': 0, 'v_component_of_wind': 0, 'vertical_velocity': 0, 'specific_humidity': 0}
+2025-03-20 08:27:53,945 - INFO - 创建损失函数
+2025-03-20 08:27:53,945 - INFO - 开始评估模型
+2025-03-20 08:27:53,945 - INFO - MEMORY [评估模型前] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 08:27:53,945 - INFO - 开始执行函数: evaluate_model
+2025-03-20 08:27:53,945 - INFO - MEMORY [开始 evaluate_model] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 08:27:53,946 - INFO - 评估样本 1/1459
+2025-03-20 08:27:53,946 - INFO - MEMORY [获取批次 1 前] - RSS: 0.89 GB, VMS: 22.09 GB
+2025-03-20 08:28:07,595 - INFO - MEMORY [获取批次 1 后] - RSS: 2.37 GB, VMS: 25.66 GB
+2025-03-20 08:28:07,595 - INFO - 开始提取输入、目标和强制项
+2025-03-20 08:28:07,775 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 3.60 GB, VMS: 26.89 GB
+2025-03-20 08:28:07,775 - INFO - 开始计算损失
+2025-03-20 08:28:07,775 - INFO - 开始执行函数: rmse_forward
+2025-03-20 08:28:07,775 - INFO - MEMORY [开始 rmse_forward] - RSS: 3.60 GB, VMS: 26.89 GB
+2025-03-20 08:28:07,775 - INFO - 开始执行预测
+2025-03-20 08:28:07,775 - INFO - MEMORY [预测前] - RSS: 3.60 GB, VMS: 26.89 GB
+2025-03-20 08:28:08,467 - WARNING - Skipping gradient checkpointing for sequence length of 1
+2025-03-20 09:11:26,141 - INFO - 程序开始执行
+2025-03-20 09:11:26,141 - INFO - MEMORY [程序开始] - RSS: 0.23 GB, VMS: 3.08 GB
+2025-03-20 09:11:26,142 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=8, test_year_start=2006, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 09:11:26,142 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 09:11:26,142 - INFO - JAX版本: 0.4.23
+2025-03-20 09:11:26,469 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 09:11:26,470 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 09:11:26,471 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 09:11:26,471 - INFO - 开始执行函数: main
+2025-03-20 09:11:26,471 - INFO - MEMORY [开始 main] - RSS: 0.58 GB, VMS: 21.64 GB
+2025-03-20 09:11:26,471 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=13, 自回归步数=8
+2025-03-20 09:11:26,471 - INFO - 测试年份: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 09:11:26,471 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 09:11:26,471 - INFO - MEMORY [加载模型前] - RSS: 0.58 GB, VMS: 21.64 GB
+2025-03-20 09:11:26,471 - INFO - 开始加载模型
+2025-03-20 09:15:26,734 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c9ff17e0>: Failed to establish a new connection: [Errno 101] Network is unreachable')': /token
+2025-03-20 09:20:27,081 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c9ff2380>: Failed to establish a new connection: [Errno 101] Network is unreachable')': /token
+2025-03-20 09:25:27,284 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951d180>: Failed to establish a new connection: [Errno 101] Network is unreachable')': /token
+2025-03-20 09:30:27,556 - ERROR - 主函数执行失败: Timeout of 120.0s exceeded, last exception: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+2025-03-20 09:30:27,564 - ERROR - Traceback (most recent call last):
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connection.py", line 196, in _new_conn
+    sock = connection.create_connection(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+OSError: [Errno 101] Network is unreachable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 490, in _make_request
+    raise new_e
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 466, in _make_request
+    self._validate_conn(conn)
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1095, in _validate_conn
+    conn.connect()
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connection.py", line 615, in connect
+    self.sock = sock = self._new_conn()
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 873, in urlopen
+    return self.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 873, in urlopen
+    return self.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 873, in urlopen
+    return self.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/transport/requests.py", line 186, in __call__
+    response = self.session.request(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 144, in retry_target
+    result = target()
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/_http/__init__.py", line 482, in api_request
+    response = self._make_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/_http/__init__.py", line 341, in _make_request
+    return self._do_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/_http/__init__.py", line 379, in _do_request
+    return self.http.request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/transport/requests.py", line 533, in request
+    self.credentials.before_request(auth_request, method, url, request_headers)
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/service_account.py", line 448, in refresh
+    access_token, expiry, _ = _client.jwt_grant(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/_client.py", line 299, in jwt_grant
+    response_data = _token_endpoint_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/_client.py", line 259, in _token_endpoint_request
+    response_status_ok, response_data, retryable_error = _token_endpoint_request_no_throw(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/_client.py", line 192, in _token_endpoint_request_no_throw
+    response = request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/transport/requests.py", line 192, in __call__
+    raise new_exc from caught_exc
+google.auth.exceptions.TransportError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 280, in main
+    run_forward, checkpoint = graphcast_wrapper.retrieve_model(resolution, pressure_levels, Path(data_path))
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_wrapper.py", line 82, in retrieve_model
+    gcs_bucket = authenticate_bucket()
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/buckets.py", line 18, in authenticate_bucket
+    gcs_bucket = gcs_client.get_bucket("dm_graphcast")
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/client.py", line 926, in get_bucket
+    bucket.reload(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/bucket.py", line 1179, in reload
+    super(Bucket, self).reload(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/_helpers.py", line 296, in reload
+    api_response = client._get_resource(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/client.py", line 493, in _get_resource
+    return self._connection.api_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/_http.py", line 90, in api_request
+    return call()
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 221, in _retry_error_helper
+    raise final_exc from source_exc
+google.api_core.exceptions.RetryError: Timeout of 120.0s exceeded, last exception: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+2025-03-20 09:30:27,564 - ERROR - 函数 main 执行出错: Timeout of 120.0s exceeded, last exception: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+2025-03-20 09:30:27,564 - ERROR - Traceback (most recent call last):
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connection.py", line 196, in _new_conn
+    sock = connection.create_connection(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+OSError: [Errno 101] Network is unreachable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 490, in _make_request
+    raise new_e
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 466, in _make_request
+    self._validate_conn(conn)
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1095, in _validate_conn
+    conn.connect()
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connection.py", line 615, in connect
+    self.sock = sock = self._new_conn()
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 873, in urlopen
+    return self.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 873, in urlopen
+    return self.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 873, in urlopen
+    return self.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/transport/requests.py", line 186, in __call__
+    response = self.session.request(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 144, in retry_target
+    result = target()
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/_http/__init__.py", line 482, in api_request
+    response = self._make_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/_http/__init__.py", line 341, in _make_request
+    return self._do_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/_http/__init__.py", line 379, in _do_request
+    return self.http.request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/transport/requests.py", line 533, in request
+    self.credentials.before_request(auth_request, method, url, request_headers)
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/service_account.py", line 448, in refresh
+    access_token, expiry, _ = _client.jwt_grant(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/_client.py", line 299, in jwt_grant
+    response_data = _token_endpoint_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/_client.py", line 259, in _token_endpoint_request
+    response_status_ok, response_data, retryable_error = _token_endpoint_request_no_throw(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/_client.py", line 192, in _token_endpoint_request_no_throw
+    response = request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/transport/requests.py", line 192, in __call__
+    raise new_exc from caught_exc
+google.auth.exceptions.TransportError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 280, in main
+    run_forward, checkpoint = graphcast_wrapper.retrieve_model(resolution, pressure_levels, Path(data_path))
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_wrapper.py", line 82, in retrieve_model
+    gcs_bucket = authenticate_bucket()
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/buckets.py", line 18, in authenticate_bucket
+    gcs_bucket = gcs_client.get_bucket("dm_graphcast")
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/client.py", line 926, in get_bucket
+    bucket.reload(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/bucket.py", line 1179, in reload
+    super(Bucket, self).reload(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/_helpers.py", line 296, in reload
+    api_response = client._get_resource(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/client.py", line 493, in _get_resource
+    return self._connection.api_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/_http.py", line 90, in api_request
+    return call()
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 221, in _retry_error_helper
+    raise final_exc from source_exc
+google.api_core.exceptions.RetryError: Timeout of 120.0s exceeded, last exception: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+2025-03-20 09:30:27,564 - ERROR - 程序执行出错: Timeout of 120.0s exceeded, last exception: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+2025-03-20 09:30:27,564 - ERROR - Traceback (most recent call last):
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connection.py", line 196, in _new_conn
+    sock = connection.create_connection(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+OSError: [Errno 101] Network is unreachable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 789, in urlopen
+    response = self._make_request(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 490, in _make_request
+    raise new_e
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 466, in _make_request
+    self._validate_conn(conn)
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1095, in _validate_conn
+    conn.connect()
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connection.py", line 615, in connect
+    self.sock = sock = self._new_conn()
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connection.py", line 211, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 873, in urlopen
+    return self.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 873, in urlopen
+    return self.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 873, in urlopen
+    return self.urlopen(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/connectionpool.py", line 843, in urlopen
+    retries = retries.increment(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/transport/requests.py", line 186, in __call__
+    response = self.session.request(
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/qubohuan/.local/lib/python3.10/site-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 144, in retry_target
+    result = target()
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/_http/__init__.py", line 482, in api_request
+    response = self._make_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/_http/__init__.py", line 341, in _make_request
+    return self._do_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/_http/__init__.py", line 379, in _do_request
+    return self.http.request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/transport/requests.py", line 533, in request
+    self.credentials.before_request(auth_request, method, url, request_headers)
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/credentials.py", line 239, in before_request
+    self._blocking_refresh(request)
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/credentials.py", line 202, in _blocking_refresh
+    self.refresh(request)
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/service_account.py", line 448, in refresh
+    access_token, expiry, _ = _client.jwt_grant(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/_client.py", line 299, in jwt_grant
+    response_data = _token_endpoint_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/_client.py", line 259, in _token_endpoint_request
+    response_status_ok, response_data, retryable_error = _token_endpoint_request_no_throw(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/oauth2/_client.py", line 192, in _token_endpoint_request_no_throw
+    response = request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/auth/transport/requests.py", line 192, in __call__
+    raise new_exc from caught_exc
+google.auth.exceptions.TransportError: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 365, in <module>
+    main(args.resolution,
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 37, in wrapper
+    result = func(*args, **kwargs)
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_runner.py", line 280, in main
+    run_forward, checkpoint = graphcast_wrapper.retrieve_model(resolution, pressure_levels, Path(data_path))
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/graphcast_wrapper.py", line 82, in retrieve_model
+    gcs_bucket = authenticate_bucket()
+  File "/sharefiles4/qubohuan/Projects/DiffDA_Low/GraphCast_src/buckets.py", line 18, in authenticate_bucket
+    gcs_bucket = gcs_client.get_bucket("dm_graphcast")
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/client.py", line 926, in get_bucket
+    bucket.reload(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/bucket.py", line 1179, in reload
+    super(Bucket, self).reload(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/_helpers.py", line 296, in reload
+    api_response = client._get_resource(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/client.py", line 493, in _get_resource
+    return self._connection.api_request(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/cloud/storage/_http.py", line 90, in api_request
+    return call()
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "/sharefiles4/qubohuan/Envs/DiffDANew/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 221, in _retry_error_helper
+    raise final_exc from source_exc
+google.api_core.exceptions.RetryError: Timeout of 120.0s exceeded, last exception: HTTPSConnectionPool(host='oauth2.googleapis.com', port=443): Max retries exceeded with url: /token (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7bd8c951c520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+
+2025-03-20 11:58:45,401 - INFO - 程序开始执行
+2025-03-20 11:58:45,401 - INFO - MEMORY [程序开始] - RSS: 0.23 GB, VMS: 3.08 GB
+2025-03-20 11:58:45,402 - INFO - 命令行参数: Namespace(resolution=1.0, pressure_levels=13, autoregressive_steps=8, test_year_start=2006, test_year_end=2016, test_pressure_level=500, test_variable='geopotential', prediction_store_path=None)
+2025-03-20 11:58:45,402 - INFO - Python版本: 3.10.16 (main, Dec 11 2024, 16:24:50) [GCC 11.2.0]
+2025-03-20 11:58:45,402 - INFO - JAX版本: 0.4.23
+2025-03-20 11:58:45,766 - INFO - Unable to initialize backend 'rocm': NOT_FOUND: Could not find registered platform with name: "rocm". Available platform names are: CUDA
+2025-03-20 11:58:45,767 - INFO - Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+2025-03-20 11:58:45,768 - INFO - 可用设备: [cuda(id=0), cuda(id=1)]
+2025-03-20 11:58:45,768 - INFO - 开始执行函数: main
+2025-03-20 11:58:45,768 - INFO - MEMORY [开始 main] - RSS: 0.58 GB, VMS: 21.64 GB
+2025-03-20 11:58:45,768 - INFO - 开始执行GraphCast, 参数: 分辨率=1.0, 压力层=13, 自回归步数=8
+2025-03-20 11:58:45,768 - INFO - 测试年份: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016], 测试变量: geopotential, 测试压力层: 500
+2025-03-20 11:58:45,768 - INFO - 数据路径: /sharefiles4/qubohuan/Projects/DiffDA_Low/Data
+2025-03-20 11:58:45,768 - INFO - MEMORY [加载模型前] - RSS: 0.58 GB, VMS: 21.64 GB
+2025-03-20 11:58:45,768 - INFO - 开始加载模型
+2025-03-20 11:59:37,713 - INFO - MEMORY [加载模型后] - RSS: 0.73 GB, VMS: 21.79 GB
+2025-03-20 11:59:37,713 - INFO - 模型加载完成
+2025-03-20 11:59:37,713 - INFO - 开始加载数据集: 年份=2006, 步数=8
+2025-03-20 11:59:37,714 - INFO - MEMORY [加载数据集前] - RSS: 0.73 GB, VMS: 21.79 GB
+2025-03-20 11:59:42,645 - INFO - MEMORY [加载数据集后] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 11:59:42,645 - INFO - 数据集加载完成, 包含 182 个样本
+2025-03-20 11:59:42,645 - INFO - 开始JIT编译前向函数
+2025-03-20 11:59:42,645 - INFO - MEMORY [JIT编译前] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 11:59:42,645 - INFO - MEMORY [JIT编译后] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 11:59:42,645 - INFO - JIT编译完成
+2025-03-20 11:59:42,645 - INFO - 设置变量权重: {'2m_temperature': 0, 'mean_sea_level_pressure': 0, '10m_v_component_of_wind': 0, '10m_u_component_of_wind': 0, 'total_precipitation_6hr': 0, 'temperature': 0, 'geopotential': 1, 'u_component_of_wind': 0, 'v_component_of_wind': 0, 'vertical_velocity': 0, 'specific_humidity': 0}
+2025-03-20 11:59:42,645 - INFO - 创建损失函数
+2025-03-20 11:59:42,645 - INFO - 开始评估模型
+2025-03-20 11:59:42,645 - INFO - MEMORY [评估模型前] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 11:59:42,645 - INFO - 开始执行函数: evaluate_model
+2025-03-20 11:59:42,645 - INFO - MEMORY [开始 evaluate_model] - RSS: 0.89 GB, VMS: 22.02 GB
+2025-03-20 11:59:42,646 - INFO - 评估样本 1/182
+2025-03-20 11:59:42,646 - INFO - MEMORY [获取批次 1 前] - RSS: 0.89 GB, VMS: 22.09 GB
+2025-03-20 12:00:15,843 - INFO - MEMORY [获取批次 1 后] - RSS: 5.05 GB, VMS: 28.19 GB
+2025-03-20 12:00:15,844 - INFO - 开始提取输入、目标和强制项
+2025-03-20 12:00:17,452 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 8.37 GB, VMS: 31.52 GB
+2025-03-20 12:00:17,452 - INFO - 开始计算损失
+2025-03-20 12:00:17,452 - INFO - 开始执行函数: rmse_forward
+2025-03-20 12:00:17,452 - INFO - MEMORY [开始 rmse_forward] - RSS: 8.37 GB, VMS: 31.52 GB
+2025-03-20 12:00:17,452 - INFO - 开始执行预测
+2025-03-20 12:00:17,452 - INFO - MEMORY [预测前] - RSS: 8.37 GB, VMS: 31.52 GB
+2025-03-20 12:00:20,602 - WARNING - Skipping gradient checkpointing for sequence length of 1
+2025-03-20 13:59:24,171 - INFO - MEMORY [预测后] - RSS: 11.21 GB, VMS: 52.31 GB
+2025-03-20 13:59:24,178 - INFO - 预测完成
+2025-03-20 13:59:24,178 - INFO - 开始计算加权误差
+2025-03-20 13:59:24,353 - INFO - MEMORY [误差计算后] - RSS: 11.21 GB, VMS: 52.31 GB
+2025-03-20 13:59:24,353 - INFO - 误差计算完成
+2025-03-20 13:59:24,353 - INFO - RMSE: 200.9542
+2025-03-20 13:59:24,354 - INFO - MEMORY [结束 rmse_forward] - RSS: 10.91 GB, VMS: 52.01 GB
+2025-03-20 13:59:24,354 - INFO - 成功执行函数: rmse_forward
+2025-03-20 13:59:24,354 - INFO - MEMORY [计算损失后] - RSS: 10.91 GB, VMS: 52.01 GB
+2025-03-20 13:59:24,354 - INFO - 样本 1 损失: 200.9542
+2025-03-20 13:59:25,210 - INFO - 评估样本 2/182
+2025-03-20 13:59:25,210 - INFO - MEMORY [获取批次 2 前] - RSS: 10.91 GB, VMS: 52.01 GB
+2025-03-20 14:00:03,348 - INFO - MEMORY [获取批次 2 后] - RSS: 11.23 GB, VMS: 52.17 GB
+2025-03-20 14:00:03,348 - INFO - 开始提取输入、目标和强制项
+2025-03-20 14:00:04,214 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 11.03 GB, VMS: 51.98 GB
+2025-03-20 14:00:04,214 - INFO - 开始计算损失
+2025-03-20 14:00:04,214 - INFO - 开始执行函数: rmse_forward
+2025-03-20 14:00:04,214 - INFO - MEMORY [开始 rmse_forward] - RSS: 11.03 GB, VMS: 51.98 GB
+2025-03-20 14:00:04,214 - INFO - 开始执行预测
+2025-03-20 14:00:04,214 - INFO - MEMORY [预测前] - RSS: 11.03 GB, VMS: 51.98 GB
+2025-03-20 15:58:40,658 - INFO - MEMORY [预测后] - RSS: 8.95 GB, VMS: 52.28 GB
+2025-03-20 15:58:40,695 - INFO - 预测完成
+2025-03-20 15:58:40,695 - INFO - 开始计算加权误差
+2025-03-20 15:58:40,857 - INFO - MEMORY [误差计算后] - RSS: 8.95 GB, VMS: 52.28 GB
+2025-03-20 15:58:40,857 - INFO - 误差计算完成
+2025-03-20 15:58:40,857 - INFO - RMSE: 216.6821
+2025-03-20 15:58:40,858 - INFO - MEMORY [结束 rmse_forward] - RSS: 8.65 GB, VMS: 51.98 GB
+2025-03-20 15:58:40,858 - INFO - 成功执行函数: rmse_forward
+2025-03-20 15:58:40,858 - INFO - MEMORY [计算损失后] - RSS: 8.65 GB, VMS: 51.98 GB
+2025-03-20 15:58:40,858 - INFO - 样本 2 损失: 216.6821
+2025-03-20 15:58:40,930 - INFO - 评估样本 3/182
+2025-03-20 15:58:40,930 - INFO - MEMORY [获取批次 3 前] - RSS: 8.65 GB, VMS: 51.98 GB
+2025-03-20 15:59:18,338 - INFO - MEMORY [获取批次 3 后] - RSS: 9.02 GB, VMS: 52.18 GB
+2025-03-20 15:59:18,338 - INFO - 开始提取输入、目标和强制项
+2025-03-20 15:59:19,213 - INFO - MEMORY [提取输入、目标和强制项后] - RSS: 9.64 GB, VMS: 52.11 GB
+2025-03-20 15:59:19,213 - INFO - 开始计算损失
+2025-03-20 15:59:19,213 - INFO - 开始执行函数: rmse_forward
+2025-03-20 15:59:19,213 - INFO - MEMORY [开始 rmse_forward] - RSS: 9.64 GB, VMS: 52.11 GB
+2025-03-20 15:59:19,213 - INFO - 开始执行预测
+2025-03-20 15:59:19,213 - INFO - MEMORY [预测前] - RSS: 9.64 GB, VMS: 52.11 GB

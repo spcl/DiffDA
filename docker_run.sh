@@ -1,0 +1,1 @@
+docker run --gpus 0 -it --rm -v $(pwd):/workspace diffda

@@ -1,0 +1,50 @@
+Metadata-Version: 2.2
+Name: graphcast
+Version: 0.1
+Summary: GraphCast: Learning skillful medium-range global weather forecasting
+Home-page: https://github.com/deepmind/graphcast
+Author: DeepMind
+License: Apache License, Version 2.0
+Keywords: GraphCast Weather Prediction
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Atmospheric Science
+Classifier: Topic :: Scientific/Engineering :: Physics
+License-File: LICENSE
+Requires-Dist: cartopy
+Requires-Dist: chex
+Requires-Dist: colabtools
+Requires-Dist: dask
+Requires-Dist: dm-haiku
+Requires-Dist: dm-tree
+Requires-Dist: jax
+Requires-Dist: jraph
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: rtree
+Requires-Dist: scipy
+Requires-Dist: trimesh
+Requires-Dist: typing_extensions
+Requires-Dist: xarray
+Requires-Dist: google-cloud-storage
+Requires-Dist: zarr
+Requires-Dist: gcsfs
+Requires-Dist: dask
+Requires-Dist: jax-dataloader
+Requires-Dist: nvtx
+Requires-Dist: wandb
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: summary
+
+GraphCast: Learning skillful medium-range global weather forecasting
