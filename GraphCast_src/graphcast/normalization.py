@@ -424,7 +424,7 @@ class InputsAndResidualsForDiffusion(predictor_base.Predictor):
         norm_static: xarray.Dataset,
         noise_scheduler: diffusers.FlaxDDPMScheduler,
         scheduler_state: diffusers.schedulers.scheduling_ddpm_flax.DDPMSchedulerState,
-        rng_var: jax.random.KeyArray,
+        rng_var: jax.Array,
         norm_measurements_diff_interp_step1: Optional[xarray.Dataset] = None,
         **kwargs
     ) -> xarray.Dataset:
