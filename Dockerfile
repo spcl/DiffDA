@@ -15,7 +15,7 @@ RUN pip install --upgrade diffusers[flax]
 ENV TF_CPP_MIN_LOG_LEVEL=2
 
 COPY ./ /workspace/
-RUN pip install -e /workspace
+RUN pip install -e /workspace/GraphCast_src
 
 CMD [ "/bin/bash" ]
 RUN mkdir -p /workspace
