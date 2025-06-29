@@ -41,7 +41,6 @@ import jax
 import numpy as np
 
 from buckets import authenticate_bucket
-from demo_data import load_example_batch, save_example_batch, load_normalization
 
 
 def train_model(loss_fn: hk.TransformedWithState, params, train_inputs, train_targets, train_forcings, epochs=5):

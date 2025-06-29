@@ -12,7 +12,7 @@ import haiku as hk
 from graphcast.checkpoint import load
 
 from buckets import authenticate_bucket
-from demo_data import load_normalization
+from normalization import load_normalization
 from pretrained_graphcast import load_model_checkpoint, find_model_name, save_checkpoint
 
 

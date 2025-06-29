@@ -495,7 +495,7 @@ class InputsAndResidualsForDiffusion(predictor_base.Predictor):
                 sample: xarray.Dataset, 
                 noise_scheduler: diffusers.FlaxDDPMScheduler,
                 scheduler_state: diffusers.schedulers.scheduling_ddpm_flax.DDPMSchedulerState,
-                rng_var: jax.random.KeyArray):
+                rng_var: jax.Array):
     n = noise_scheduler.config.num_train_timesteps // scheduler_state.num_inference_steps
     rng_undo = jax.random.split(rng_var, 1)[0]
     rng_undo_t = jax.random.fold_in(rng_undo, timestep)
@@ -516,7 +516,7 @@ class InputsAndResidualsForDiffusion(predictor_base.Predictor):
                 noise_scheduler: diffusers.FlaxDDPMScheduler,
                 scheduler_state: diffusers.schedulers.scheduling_ddpm_flax.DDPMSchedulerState,
                 num_inference_steps: int,
-                rng_batch: jax.random.KeyArray,
+                rng_batch: jax.Array,
                 repaint_eta: float = 0.0,
                 repaint_jump_length: int = 10,
                 repaint_jump_n_sample: int = 10,
@@ -562,7 +562,7 @@ class InputsAndResidualsForDiffusion(predictor_base.Predictor):
                noise_scheduler: diffusers.FlaxDDPMScheduler,
                scheduler_state: diffusers.schedulers.scheduling_ddpm_flax.DDPMSchedulerState,
                num_inference_steps: int,
-               rng_batch: jax.random.KeyArray,
+               rng_batch: jax.Array,
                progress_bar: bool = False,
                **kwargs
                ) -> xarray.Dataset:
