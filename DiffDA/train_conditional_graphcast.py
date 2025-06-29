@@ -6,7 +6,7 @@ import optax
 import jax
 import jax.numpy as jnp
 import xarray
-import diffusion.checkpoint
+import checkpoint
 from graphcast import xarray_jax
 from graphcast import xarray_tree
 from graphcast import normalization
@@ -134,7 +134,7 @@ def train_model(loss_fn: hk.TransformedWithState,
                 forward_repaint_fn: hk.TransformedWithState,
                 norm_diff_fn: Callable,
                 norm_original_fn: Callable,
-                checkpoint: diffusion.checkpoint.TrainingCheckpoint,
+                checkpoint: checkpoint.TrainingCheckpoint,
                 args,
                 epochs: int=5):
 
@@ -312,9 +312,9 @@ def train_model(loss_fn: hk.TransformedWithState,
         
         if args.rank == 0:
             # Save checkpoint
-            diffusion.checkpoint.save_checkpoint(
+            checkpoint.save_checkpoint(
                 Path(args.checkpoint_directory),
-                diffusion.checkpoint.TrainingCheckpoint(
+                checkpoint.TrainingCheckpoint(
                     params=training_state.params,
                     opt_state=training_state.opt_state,
                     task_config=checkpoint.task_config,
@@ -400,7 +400,7 @@ def main(args):
     norm_original_fn = functools.partial(normalization.normalize, scales=stddev_by_level, locations=mean_by_level)
 
     # Load the latest checkpoint from the directory
-    checkpoint = diffusion.checkpoint.load_checkpoint(Path(args.checkpoint_directory))
+    checkpoint = checkpoint.load_checkpoint(Path(args.checkpoint_directory))
     noise_scheduler = FlaxDDPMScheduler(args.num_train_timesteps,
                                         beta_schedule=args.ddpm_beta_schedule,
                                         prediction_type="epsilon")
@@ -409,7 +409,7 @@ def main(args):
         model_config, task_config, params = load_model_checkpoint(args.checkpoint_path)
 
         scheduler_state = noise_scheduler.create_state()
-        checkpoint = diffusion.checkpoint.TrainingCheckpoint(
+        checkpoint = checkpoint.TrainingCheckpoint(
             model_config=model_config,
             task_config=task_config,
             params=params,
